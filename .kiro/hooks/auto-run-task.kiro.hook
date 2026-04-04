@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Auto Run Task",
+  "description": "任務階段自動執行，不需要手動確認",
+  "version": "1",
+  "when": {
+    "type": "preTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "直接執行這個任務，不要詢問使用者是否要執行，立即開始實作。"
+  }
+}
