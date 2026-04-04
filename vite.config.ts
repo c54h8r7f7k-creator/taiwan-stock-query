@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? '/taiwan-stock-query/' : '/',
+  base: (process as { env: Record<string, string> }).env['GITHUB_ACTIONS'] ? '/taiwan-stock-query/' : '/',
   plugins: [
     react(),
     tailwindcss(),
