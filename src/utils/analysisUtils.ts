@@ -115,7 +115,6 @@ function buildSummary(stock: StockDetail, chip: ChipData | null): string {
     }
   }
 
-  parts.push('以上為技術面規則計算，僅供參考。');
   return parts.join('');
 }
 
