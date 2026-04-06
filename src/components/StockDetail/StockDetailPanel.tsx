@@ -13,8 +13,6 @@ import { WatchlistButton } from './WatchlistButton';
 import { ChipPanel } from './ChipPanel';
 import { FundamentalPanel } from './FundamentalPanel';
 import { AIAnalysisPanel } from './AIAnalysisPanel';
-
-interface StockDetailPanelProps {
   /** 選取的股票代號，null 表示尚未選取 */
   stockId: string | null;
 }
@@ -25,7 +23,7 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: 'quote', label: '即時報價' },
   { key: 'chip', label: '籌碼面' },
   { key: 'fundamental', label: '基本面' },
-  { key: 'ai', label: 'AI 分析' },
+  { key: 'ai', label: '短期技術分析' },
 ];
 
 /** 根據價格方向回傳對應的 Tailwind 顏色 class */
@@ -52,8 +50,8 @@ function formatDateTime(isoString: string): string {
 }
 
 export function StockDetailPanel({ stockId }: StockDetailPanelProps) {
-  const { currentStock, isLoading, error, selectStock } = useStockStore();
-  const { clearResult } = useAIAnalysisStore();
+  const { currentStock, isLoading, error, selectStock, fetchChipData, fetchFundamentalData } = useStockStore();
+  const { clearResult, requestAnalysis } = useAIAnalysisStore();
   const [activeTab, setActiveTab] = useState<TabKey>('quote');
 
   useEffect(() => {
@@ -63,6 +61,20 @@ export function StockDetailPanel({ stockId }: StockDetailPanelProps) {
       clearResult();
     }
   }, [stockId, selectStock, clearResult]);
+
+  // 切換 tab 時清空並重新載入對應資料
+  const handleTabChange = (tab: TabKey) => {
+    setActiveTab(tab);
+    if (!currentStock) return;
+    if (tab === 'chip') {
+      fetchChipData(currentStock.id);
+    } else if (tab === 'fundamental') {
+      fetchFundamentalData(currentStock.id);
+    } else if (tab === 'ai') {
+      clearResult();
+      requestAnalysis(currentStock.id, currentStock, null);
+    }
+  };
 
   if (!stockId) {
     return (
@@ -119,7 +131,7 @@ export function StockDetailPanel({ stockId }: StockDetailPanelProps) {
           {TABS.map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => handleTabChange(tab.key)}
               className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.key
                   ? 'border-blue-500 text-blue-600'
