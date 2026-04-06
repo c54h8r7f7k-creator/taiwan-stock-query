@@ -13,6 +13,8 @@ import { WatchlistButton } from './WatchlistButton';
 import { ChipPanel } from './ChipPanel';
 import { FundamentalPanel } from './FundamentalPanel';
 import { AIAnalysisPanel } from './AIAnalysisPanel';
+
+interface StockDetailPanelProps {
   /** 選取的股票代號，null 表示尚未選取 */
   stockId: string | null;
 }
