@@ -565,7 +565,7 @@ function buildAIPrompt(
 export function parseAIResponse(stockId: string, content: string): Result<AIAnalysisResult> {
   try {
     const parsed = JSON.parse(content);
-    const required = ['targetPrice', 'institutionalCostPrice', 'buyRangeLow', 'buyRangeHigh', 'sellRangeLow', 'sellRangeHigh', 'summary'];
+    const required = ['targetPrice', 'institutionalCostPrice', 'kdj', 'rsi', 'summary'];
     for (const key of required) {
       if (parsed[key] === undefined || parsed[key] === null) {
         return { ok: false, error: ERROR_MESSAGES.AI_PARSE_ERROR };
@@ -577,10 +577,12 @@ export function parseAIResponse(stockId: string, content: string): Result<AIAnal
         stockId,
         targetPrice: Number(parsed.targetPrice),
         institutionalCostPrice: Number(parsed.institutionalCostPrice),
-        buyRangeLow: Number(parsed.buyRangeLow),
-        buyRangeHigh: Number(parsed.buyRangeHigh),
-        sellRangeLow: Number(parsed.sellRangeLow),
-        sellRangeHigh: Number(parsed.sellRangeHigh),
+        kdj: {
+          k: Number(parsed.kdj?.k ?? 50),
+          d: Number(parsed.kdj?.d ?? 50),
+          j: Number(parsed.kdj?.j ?? 50),
+        },
+        rsi: { rsi: Number(parsed.rsi?.rsi ?? 50) },
         summary: String(parsed.summary).slice(0, 200),
         generatedAt: new Date().toISOString(),
       },

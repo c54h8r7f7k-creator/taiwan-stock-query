@@ -52,7 +52,7 @@ function formatDateTime(isoString: string): string {
 }
 
 export function StockDetailPanel({ stockId }: StockDetailPanelProps) {
-  const { currentStock, isLoading, error, selectStock, fetchChipData, fetchFundamentalData } = useStockStore();
+  const { currentStock, isLoading, error, selectStock, fetchChipData, fetchFundamentalData, chartData } = useStockStore();
   const { clearResult, requestAnalysis } = useAIAnalysisStore();
   const [activeTab, setActiveTab] = useState<TabKey>('quote');
 
@@ -74,7 +74,7 @@ export function StockDetailPanel({ stockId }: StockDetailPanelProps) {
       fetchFundamentalData(currentStock.id);
     } else if (tab === 'ai') {
       clearResult();
-      requestAnalysis(currentStock.id, currentStock, null);
+      requestAnalysis(currentStock.id, currentStock, null, chartData);
     }
   };
 
