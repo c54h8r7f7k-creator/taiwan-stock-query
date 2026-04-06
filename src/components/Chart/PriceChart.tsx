@@ -19,7 +19,7 @@ export function PriceChart() {
     <div className="bg-white rounded-xl border border-gray-200 p-4">
       {/* 標題列與時間區間選擇器 */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-gray-700">股價走勢</h3>
+        <h3 className="text-sm font-semibold text-gray-700">走勢圖</h3>
         <TimeRangeSelector value={chartRange} onChange={handleRangeChange} />
       </div>
       {/* 圖表（ResponsiveContainer 自動適應容器寬度） */}
