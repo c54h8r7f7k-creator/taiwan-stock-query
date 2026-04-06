@@ -20,15 +20,15 @@ import { ERROR_MESSAGES } from '../constants/messages';
 // ─── Axios 實例 ────────────────────────────────────────────────────────────────
 
 const isDev = import.meta.env.DEV;
-const PROXY_BASE = isDev ? '' : 'https://taiwan-stock-proxy.wendy23145.workers.dev';
+const PROXY_BASE = isDev ? '' : '';
 
-/** TWSE Open API 實例（透過 Vite proxy 解決 CORS） */
+/** TWSE Open API 實例（透過 proxy 解決 CORS） */
 const twseClient = axios.create({
   baseURL: `${PROXY_BASE}/twse-api`,
   timeout: 10000,
 });
 
-/** TWSE 歷史資料實例（透過 Vite proxy 解決 CORS） */
+/** TWSE 歷史資料實例（透過 proxy 解決 CORS） */
 const twseHistoryClient = axios.create({
   baseURL: `${PROXY_BASE}/twse-history`,
   timeout: 10000,
