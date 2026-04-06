@@ -65,7 +65,7 @@ interface RawFMTQIK {
   TradeVolume: string;
   TradeValue: string;
   Transaction: string;
-  Index: string;
+  TAIEX: string;
   Change: string;
 }
 
@@ -309,7 +309,7 @@ export async function fetchMarketOverview(): Promise<Result<MarketOverview>> {
       return { ok: false, error: ERROR_MESSAGES.MARKET_LOAD_FAILED };
     }
     const latestTaiex = taiexData[taiexData.length - 1];
-    const taiexIndex = parseNumber(latestTaiex.Index);
+    const taiexIndex = parseNumber(latestTaiex.TAIEX);
     const taiexChange = parseChange(latestTaiex.Change);
     const taiexPrevious = taiexIndex - taiexChange;
     const taiexChangePercent = taiexPrevious !== 0
