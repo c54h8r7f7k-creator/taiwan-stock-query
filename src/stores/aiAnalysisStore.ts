@@ -4,7 +4,7 @@
  */
 
 import { create } from 'zustand';
-import type { AIAnalysisResult, ChipData, StockDetail } from '../types';
+import type { AIAnalysisResult, ChipData, StockDetail, OHLCVDataPoint } from '../types';
 import { calcRuleBasedAnalysis } from '../utils/analysisUtils';
 
 interface AIAnalysisStore {
@@ -15,6 +15,7 @@ interface AIAnalysisStore {
     stockId: string,
     stockDetail: StockDetail,
     chipData: ChipData | null,
+    candles: OHLCVDataPoint[],
   ) => void;
   clearResult: () => void;
 }
@@ -24,11 +25,10 @@ export const useAIAnalysisStore = create<AIAnalysisStore>((set) => ({
   isLoading: false,
   error: null,
 
-  requestAnalysis: (stockId, stockDetail, chipData) => {
+  requestAnalysis: (stockId, stockDetail, chipData, candles) => {
     set({ isLoading: true, error: null, result: null });
-    // rule-based 計算為同步，用 setTimeout 模擬短暫計算感
     setTimeout(() => {
-      const result = calcRuleBasedAnalysis(stockId, stockDetail, chipData);
+      const result = calcRuleBasedAnalysis(stockId, stockDetail, chipData, candles);
       set({ result, isLoading: false });
     }, 300);
   },

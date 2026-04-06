@@ -119,6 +119,22 @@ export interface FundamentalData {
   updatedAt: string;
 }
 
+/** KDJ 指標結果 */
+export interface KDJResult {
+  /** K 值 */
+  k: number;
+  /** D 值 */
+  d: number;
+  /** J 值 */
+  j: number;
+}
+
+/** RSI 指標結果 */
+export interface RSIResult {
+  /** RSI 值（0~100） */
+  rsi: number;
+}
+
 /** AI 分析結果 */
 export interface AIAnalysisResult {
   stockId: string;
@@ -126,14 +142,10 @@ export interface AIAnalysisResult {
   targetPrice: number;
   /** 法人成本價估算（元） */
   institutionalCostPrice: number;
-  /** 建議短期買入價區間下限（元） */
-  buyRangeLow: number;
-  /** 建議短期買入價區間上限（元） */
-  buyRangeHigh: number;
-  /** 建議短期賣出價區間下限（元） */
-  sellRangeLow: number;
-  /** 建議短期賣出價區間上限（元） */
-  sellRangeHigh: number;
+  /** KDJ(9) 指標 */
+  kdj: KDJResult;
+  /** RSI(14) 指標 */
+  rsi: RSIResult;
   /** 分析摘要說明（不超過 200 字） */
   summary: string;
   /** 分析產生時間（ISO 8601） */
