@@ -123,13 +123,12 @@ export function AIAnalysisPanel({ stockId: _stockId }: AIAnalysisPanelProps) {
         <p className="text-sm text-gray-700 leading-relaxed">{result.summary}</p>
       </div>
 
-      <p className="text-xs text-gray-400">
-        計算時間：{new Date(result.generatedAt).toLocaleString('zh-TW')}
-      </p>
-
-      <div className="border border-yellow-200 bg-yellow-50 rounded-lg p-3">
+      <div className="border border-yellow-200 bg-yellow-50 rounded-lg p-3 flex justify-between items-end">
         <p className="text-xs text-yellow-700 leading-relaxed">
-          ⚠️ 本分析為技術面規則計算，僅供參考，不構成投資建議，投資人應自行判斷並承擔投資風險。
+          ⚠️ 本分析為技術面規則計算，僅供參考。
+        </p>
+        <p className="text-xs text-gray-400 whitespace-nowrap ml-2">
+          計算時間：{new Date(result.generatedAt).toLocaleString('zh-TW')}
         </p>
       </div>
     </div>
