@@ -118,9 +118,9 @@ export function AIAnalysisPanel({ stockId: _stockId }: AIAnalysisPanelProps) {
       </div>
 
       {/* 分析摘要 */}
-      <div className="bg-white border border-gray-100 rounded-lg p-3">
-        <p className="text-xs font-semibold text-gray-700 mb-1">分析摘要</p>
-        <p className="text-sm text-gray-700 leading-relaxed">{result.summary}</p>
+      <div className="bg-green-50 border border-green-100 rounded-lg p-3">
+        <p className="text-xs font-semibold text-green-700 mb-1">分析摘要</p>
+        <p className="text-sm text-green-800 leading-relaxed">{result.summary}</p>
       </div>
 
       <div className="border border-yellow-200 bg-yellow-50 rounded-lg p-3 flex justify-between items-end">
